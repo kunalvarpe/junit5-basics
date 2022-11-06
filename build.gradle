@@ -1,0 +1,38 @@
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.9.0')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.9.0')
+    testImplementation("org.mockito:mockito-core:2.28.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:2.28.2")
+    testImplementation("org.assertj:assertj-core:3.22.0")
+}
+
+group = 'io.kpsoft'
+version = '1.0-SNAPSHOT'
+description = 'junit-5-basics'
+java.sourceCompatibility = JavaVersion.VERSION_16
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
