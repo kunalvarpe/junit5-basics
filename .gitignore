@@ -1,7 +1,38 @@
-.idea
+# IntelliJ
+out/
+.idea/
+.idea_modules/
 *.iml
+*.ipr
+*.iws
 
+# Gradle
 .gradle
 .build/
 **/build/
+.gradletasknamecache
+gradle-app.settings
+!gradle-wrapper.jar
+
+# VS Code
+.vscode/
+.code-workspace
+
+# Eclipse
+.settings/
+bin/
+tmp/
+.metadata
+.classpath
+.project
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.factorypath
+
+# OS X
+.DS_Store
 
