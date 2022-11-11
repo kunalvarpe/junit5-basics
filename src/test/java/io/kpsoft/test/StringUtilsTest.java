@@ -3,7 +3,8 @@ package io.kpsoft.test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static io.kpsoft.test.StringUtils.*;
+import static org.assertj.core.api.Assertions.*;
 
 class StringUtilsTest {
 
@@ -12,7 +13,8 @@ class StringUtilsTest {
     }
 
     @Test
-    void testStringIsEmpty(){
-        assertTrue(StringUtils.isStringNotEmpty("asd"));
+    void testStringIsEmpty() {
+        assertThat(isStringNotEmpty("asd")).isTrue();
+        assertThat(isStringNotEmpty("")).isFalse();
     }
 }
