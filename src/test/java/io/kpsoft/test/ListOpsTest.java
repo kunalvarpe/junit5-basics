@@ -9,7 +9,7 @@ import io.kpsoft.test.model.People;
 import org.junit.jupiter.api.Test;
 
 import static java.util.stream.Collectors.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class ListOpsTest {
 
@@ -20,7 +20,9 @@ class ListOpsTest {
         int sizeBefore = list.size();
         list.add(new People("fname", "lname", 21, 20000, "Pune"));
         int sizeAfter = list.size();
-        assertNotEquals(sizeAfter, sizeBefore);
+        assertThat(sizeAfter)
+                .as("List add() method should add elements resulting change in size")
+                .isGreaterThan(sizeBefore);
     }
 
     @Test
@@ -28,7 +30,9 @@ class ListOpsTest {
         List<People> peopleList = list.stream()
                                       .filter(people -> people.age() > 25)
                                       .toList();
-        assertEquals(2, peopleList.size());
+        assertThat(peopleList)
+                .as("Should have 2 people who's age is greater than 25")
+                .matches(peoples -> peoples.size() == 2);
 
     }
 
@@ -36,15 +40,20 @@ class ListOpsTest {
     void testGroupPeopleByCityShouldSuccess() {
         Map<String, List<People>> groupByCity = list.stream()
                                                     .collect(groupingBy(People::city));
-        assertEquals(6, groupByCity.size());
+        assertThat(groupByCity)
+                .as("Should have 6 people from Pune city")
+                .matches(peoples -> peoples.size() == 6);
     }
 
     @Test
     void testAvgSalOfEmpByCityShouldSuccess() {
-        Map<String, Double> averageSalaryByCity = list.stream()
-                                                      .collect(groupingBy(People::city, averagingDouble(People::salary)));
+        Map<String, Double> averageSalaryByCity =
+                list.stream()
+                    .collect(groupingBy(People::city, averagingDouble(People::salary)));
 
-        assertEquals(averageSalaryByCity.get("Pune"), (10000 + 0.0 + 100000) / 3);
+        assertThat(averageSalaryByCity)
+                .as("Average salary by city Pune should match 30000.0")
+                .matches(peoples -> peoples.get("Pune") == (10000 + 0.0 + 100000) / 3);
 
     }
 
